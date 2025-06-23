@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Mis libros leídos</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: pink;
+            text-align: center;
+        }
+
+        h2 {
+            color: pink;
+        }
+
+        .libro {
+            border: 1px solid #555;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #222;
+        }
+
+        img {
+            max-width: 150px;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .estrellas {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Mis libros leídos</h1>
+
+<ul>
+    {% for libro in libros %}
+    <li class="libro">
+        <h2>{{ libro.titulo }}</h2>
+
+        <p><strong>Autor:</strong> {{ libro.autor.username }}</p>
+        <p><em>Fecha de publicación:</em> {{ libro.fecha_publicacion|date:"d M Y" }}</p>
+
+        {% if libro.portada %}
+        <img src="{{ libro.portada.url }}" alt="Portada de {{ libro.titulo }}">
+        {% endif %}
+
+        <p>{{ libro.descripcion }}</p>
+
+        <p><strong>Calificación:</strong>
+            <span class="estrellas">
+                {% for i in "12345" %}
+                    {% if forloop.counter <= libro.estrellas %}
+                        ⭐
+                    {% else %}
+                        ☆
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </p>
+
+        {% if libro.opinion_personal %}
+        <p><strong>Opinión personal:</strong> {{ libro.opinion_personal }}</p>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li>No hay libros publicados.</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

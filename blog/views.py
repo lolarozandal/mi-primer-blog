@@ -1,15 +1,13 @@
-from django.shortcuts import render
-from .models import Publicacion
+from django.shortcuts import render, redirect
+from .models import Libro
 from django.utils import timezone
 
+def lista_libros(request):
+    libros = Libro.objects.filter(
+        fecha_publicacion__lte=timezone.now()
+    ).order_by('fecha_publicacion')
+    
+    return render(request, 'blog/lista_libros.html', {'libros': libros})
 
-def lista_public(request):
-    publicaciones=Publicacion.objects.filter(fecha_creacion=timezone.now()).order_by('fecha_creacion')
-    return render(request, 'blog/lista_public.html', {'publicaciones': publicaciones})
- 
-from django.shortcuts import render
-from .models import Publicacion
-
-def blog(request):
-    publicaciones = Publicacion.objects.all()  # o con filtros
-    return render(request, 'blog/blog.html', {'publicaciones': publicaciones})
+def redireccion_evaluacion(request):
+    return redirect('evaluacion2')

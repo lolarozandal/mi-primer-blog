@@ -1,5 +1,7 @@
 from django.urls import path
-from . import views
+from blog import views  # Asegurate de importar tus vistas
+
 urlpatterns = [
-    path('', views.lista_public, name='lista_public'),  # cuando la URL esté vacía, muestra la lista de posts
+    path('', views.redireccion_evaluacion),  # Redirige / a /evaluacion2/
+    path('evaluacion2/', views.lista_libros, name='evaluacion2'),
 ]
