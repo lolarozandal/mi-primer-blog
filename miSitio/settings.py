@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog',
+    'blog',  # <-- Esto debe estar incluido!blog.models.Libro
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
